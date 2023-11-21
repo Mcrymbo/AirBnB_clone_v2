@@ -1,27 +1,21 @@
-#!/usr/bin/python3
-""" State Module for HBNB project """
+#!/usr/bin/python
+""" holds class Amenity"""
+import models
 from models.base_model import BaseModel, Base
+from os import getenv
+import sqlalchemy
 from sqlalchemy import Column, String
-from uuid import uuid4
-from os import environ
+from sqlalchemy.orm import relationship
 
 
-s = "HBNB_TYPE_STORAGE"
-if s in environ.keys() and environ["HBNB_TYPE_STORAGE"] == "db":
-    class Amenity(BaseModel, Base):
-        """
-        This is amenity class
-        """
+class Amenity(BaseModel, Base):
+    """Representation of Amenity """
+    if models.storage_t == 'db':
         __tablename__ = 'amenities'
-        id = Column(Integer, nullable=False, autoincrement=True, primary_key=True)
         name = Column(String(128), nullable=False)
-        
-        def __init__(self, **kwargs):
-            setattr(self, 'id', str(uuid4()))
-            for k, v in kwargs.items():
-                setattr(self, k, v)
-
-else:
-    class Amenity(BaseModel):
-
+    else:
         name = ""
+
+    def __init__(self, *args, **kwargs):
+        """initializes Amenity"""
+        super().__init__(*args, **kwargs)
