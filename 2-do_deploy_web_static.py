@@ -25,7 +25,6 @@ def do_deploy(archive_path):
         wname = wname[0]
 
         put(archive_path, "/tmp/{}".format(name))
-        run("rm -rf /data/web_static/releases/{}/".format(wname))
         run("mkdir -p /data/web_static/releases/{}"
             .format(wname))
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
@@ -37,7 +36,8 @@ def do_deploy(archive_path):
         run("rm -rf /data/web_static/current")
         run("ln -s /data/web_static/releases/{} \
                 /data/web_static/current".format(wname))
+
         print("New version deployed!")
         return True
-    except Exception:
+    except:
         return False
