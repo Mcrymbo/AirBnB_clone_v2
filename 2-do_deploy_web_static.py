@@ -7,9 +7,9 @@ from datetime import datetime
 import shlex
 import os
 
-
 env.hosts = ['3.83.238.99', '54.236.16.109']
 env.user = 'ubuntu'
+
 
 def do_deploy(archive_path):
     """ Deploying the archive """
@@ -25,13 +25,18 @@ def do_deploy(archive_path):
         wname = wname[0]
 
         put(archive_path, "/tmp/{}".format(name))
-        run("mkdir -p /data/web_static/releases/{}".format(wname))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".format(name, wname))
+        run("rm -rf /data/web_static/releases/{}/".format(wname))
+        run("mkdir -p /data/web_static/releases/{}"
+            .format(wname))
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
+            .format(name, wname))
         run("rm -rf /tmp/{}".format(name))
-        run("mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/".format(wname, wname))
+        run("mv /data/web_static/releases/{}/web_static/* \
+                /data/web_static/releases/{}/".format(wname, wname))
         run("rm -rf /data/web_static/releases/{}/web_static".format(wname))
         run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{} /data/web_static/current".format(wname))
+        run("ln -s /data/web_static/releases/{} \
+                /data/web_static/current".format(wname))
         print("New version deployed!")
         return True
     except Exception:
