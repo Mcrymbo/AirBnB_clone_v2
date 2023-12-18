@@ -7,7 +7,7 @@ from datetime import datetime
 import shlex
 import os
 
-env.hosts = ['3.83.238.99', '54.236.16.109']
+env.hosts = ["100.26.121.3", "100.26.159.29"]
 env.user = 'ubuntu'
 
 

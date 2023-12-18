@@ -30,7 +30,7 @@ printf %s "server {
 
   location /hbnb_static {
     alias /data/web_static/current;
-    index index.html;
+    index index.html index.htm;
   }
 
   location /redirect_me {
@@ -40,10 +40,10 @@ printf %s "server {
   error_page 404 /404.html;
   location /404 {
     root /var/www/html;
+    internal;
   }
 }" > /etc/nginx/sites-available/default
 
 service nginx restart
 
-service nginx restart
 exit 0
