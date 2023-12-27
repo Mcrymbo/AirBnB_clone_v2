@@ -21,7 +21,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_is_fun(text):
     """ allows a text to be passed in the url """
-    return 'C {}'.format(text.replace('_', ' ')
+    return 'C {}'.format(text.replace('_', ' '))
 
 
 @app.route('/python/', strict_slashes=False)
