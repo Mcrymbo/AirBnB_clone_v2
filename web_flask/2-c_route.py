@@ -22,7 +22,7 @@ def hbnb():
 def c_is_fun(text):
     """ allows a text to be passed in the url """
     text = text.replace('_', ' ')
-    return 'C is {}'.format(text)
+    return 'C {}'.format(text)
 
 
 if __name__ == '__main__':
