@@ -11,22 +11,26 @@ from models.city import City
 app = Flask(__name__)
 
 
-@app.route('/states', strict_slashes=False)
+@app.route('/states/', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
-def cities_by_state(id=None):
-    """ A function that gets cities by states """
+def display_html(id=None):
+    """ Function called with /states route """
     states = storage.all(State)
 
     if not id:
-        states = {value.id: value.name for value in states.values()}
-        return render_template('7-states.html',
-                           Table="States", items=states)
+        dict_to_html = {value.id: value.name for value in states.values()}
+        return render_template('7-states_list.html',
+                               Table="States",
+                               items=dict_to_html)
 
-    id_name = 'State.{}'.format(id)
-    if id_name in states:
-        return render_template('9-states.html', Table='States',
-                               items=states[id_name])
-    return render_template('9-states.html', items=None)
+    k = "State.{}".format(id)
+    if k in states:
+        return render_template('9-states.html',
+                               Table="State: {}".format(states[k].name),
+                               items=states[k])
+
+    return render_template('9-states.html',
+                           items=None)
 
 
 @app.teardown_appcontext
