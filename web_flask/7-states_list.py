@@ -16,6 +16,7 @@ def list_states():
     context = {value.id: value.name for value in states.values()}
     return render_template('7-states_list.html', Table="States", items=context)
 
+
 @app.teardown_appcontext
 def teardown_db(exception):
     storage.close()
